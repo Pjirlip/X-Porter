@@ -1,0 +1,157 @@
+#wpwrap {
+    background: #F9F7F7;
+}
+
+#wpcontent {
+    height: calc(100vh - 32px);
+    padding-left: 0 !important;
+}
+
+#wpbody, #wpbody-content {
+    height: 100%;
+    padding-bottom: 0;
+}
+
+.hxp {
+    height: calc(100% - 20px);
+    display: grid;
+    grid-template-rows: 110px 2fr 1fr;
+    grid-template-areas: "heading" "listarea" "createDownload";
+    text-overflow: ellipsis;
+    padding-bottom: 20px;
+    grid-gap: 10px 0;
+}
+
+.hxp h1, .hxp h2, .hxp h3, .hxp h4, .hxp h5, .hxp h6 {
+    color: #3F72AF;
+}
+
+.hxp ul {
+    list-style: none;
+    display: grid;
+    grid-auto-rows: 45px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+.hxp li, .tableHead {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.hxp li:nth-child(even) {
+    background-color: #DBE2EF;
+}
+
+.tableHead {
+    background-color: #3F72AF;
+    color: #DBE2EF;
+
+}
+
+#headertext {
+    grid-area: heading;
+    text-align: center;
+    background-color: #112D4E;
+    color: #DBE2EF;
+    display: grid;
+    align-content: center;
+    overflow: hidden;
+}
+
+#headertext h1 {
+    color: #DBE2EF;
+}
+
+#generateList {
+    grid-area: listarea;
+    padding: 0 20px;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    grid-template-columns: 1fr 50px 200px;
+    grid-template-areas: "firststep progressIndicator refreshListButton" "list list list";
+    min-height: 0;
+}
+
+#firstStepHeading {
+    grid-area: firststep;
+}
+
+#progressIndicator {
+    grid-area: progressIndicator;
+}
+
+#loadButton {
+    grid-area: refreshListButton;
+    height: 20px;
+    align-self: center;
+}
+
+#listElements {
+    grid-area: list;
+    border: solid 3px #DBE2EF;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#wpfooter {
+    display: none;
+}
+
+#createDownloadArea
+{
+    padding: 0 20px;
+    grid-area: createDownload;
+    display: grid;
+    grid-template-columns: 1fr 1fr 200px;
+    grid-template-areas: "listColors listFonts downloadButton";
+    grid-gap: 0 10px;
+}
+
+#neededColorsArea
+{
+    grid-area: listColors;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+}
+
+#neededFontsArea
+{
+
+    grid-area: listFonts;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+}
+
+#neededFontsArea ul, #neededColorsArea ul
+{
+    border: solid 3px #DBE2EF;
+}
+
+#neededColorsArea ul li
+{
+    padding-left: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 50px;
+    justify-items: flex-start;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#downloadButtonArea
+{
+    grid-area: downloadButton;
+    display: inline-grid;
+    align-items: flex-end;
+}
+
+.subtableHead {
+    background-color: #3F72AF;
+    color: #DBE2EF;
+}
