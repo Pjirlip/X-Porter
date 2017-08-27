@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: HeaderXPorter
+Plugin Name: XPorter
 Plugin URI: https://dippel.rocks
-Description: A Plugin to export and import X Pro (Themeco) Theme Headers.
+Description: A Plugin to export and import X Pro (Themeco) Theme Headers and Footers.
 Version: 1.0.0
 Author: Philipp Dippel
 Author URI: https://dippel.rocks
@@ -26,8 +26,8 @@ function hxp_main_export_screen() {
 	<div class="hxp">
 		<div id="headertext">
 			<div id="innerHeaderContainer">
-				<h1> Willkommen beim Header Exporter</h1>
-				<p>Mit diesem Plugin lassen sich mit X Pro erstellte Header spielend einfach exportieren und
+				<h1> Willkommen beim X-Exporter</h1>
+				<p>Mit diesem Plugin lassen sich mit X Pro erstellte Header und Footer spielend einfach exportieren und
 					importieren.</p></div>
 		</div>
 		<div id="generateList">
