@@ -26,6 +26,7 @@ jQuery(document).ready(() => {
     jQuery('#loadButton').click(() => {
 
         jQuery('#exportButton').prop("disabled", true);
+        hxp_clearExports();
 
         hxp_colors                           = null;
         hxp_all_Elements                     = [];
@@ -262,7 +263,14 @@ jQuery(document).ready(() => {
                 console.info("Write JSON Configuration File went well");
 
                 jQuery.post(hxp_ajax_object.ajax_url, {'action': 'hxp_create_export_bundle'}, (response) => {
-                    console.log(response);
+                    if (response == true)
+                    {
+
+                    }
+                    else
+                    {
+                        alert('Something went wrong: Creating Zip-Archive')
+                    }
                 });
             }
             else

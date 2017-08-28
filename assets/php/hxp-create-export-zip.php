@@ -17,7 +17,6 @@ function hxp_create_export_bundle() {
 	$hxp_sucess_indicator = true;
 	$hxp_upload_dir       = wp_upload_dir();
 
-
 	$hxp_export_zip   = new ZipArchive();
 	$hxp_zip_filename = $hxp_upload_dir['basedir'] . '/hxp_exports/export.zip';
 
@@ -27,28 +26,30 @@ function hxp_create_export_bundle() {
 		wp_die();
 	}
 
-	$hxp_export_zip->addFile( $hxp_upload_dir['basedir'] . '/hxp_exports/configuration.json', 'configuration.json');
+	$hxp_export_zip->addFile( $hxp_upload_dir['basedir'] . '/hxp_exports/configuration.json', 'configuration.json' );
 
-	$files = new RecursiveIteratorIterator(
+	$hxp_files = new RecursiveIteratorIterator(
 		new RecursiveDirectoryIterator( $hxp_upload_dir['basedir'] . '/hxp_exports/images/' ),
 		RecursiveIteratorIterator::LEAVES_ONLY
 	);
 
-	foreach ( $files as $name => $file ) {
-		// Skip directories (they would be added automatically)
+	foreach ( $hxp_files as $name => $file ) {
+		// Skip directories
 		if ( ! $file->isDir() ) {
 			// Get real and relative path for current file
-			$filePath     = $file->getRealPath();
-			$relativePath = substr( $filePath, strlen( $hxp_upload_dir['basedir'] . '/hxp_exports/images/' ) );
+			$hxp_filePath     = $file->getRealPath();
+			$hxp_relativePath = substr( $hxp_filePath, strlen( $hxp_upload_dir['basedir'] . '/hxp_exports/images/' ) );
 
-			// Add current file to archive
-			$hxp_export_zip->addFile( $filePath, 'images/' . $relativePath );
+			if(false == $hxp_export_zip->addFile( $hxp_filePath, 'images/' . $hxp_relativePath ))
+			{
+				$hxp_sucess_indicator = false;
+			};
 		}
 	}
 
 	$hxp_export_zip->close();
 
-	echo "Hallo";
+	echo $hxp_sucess_indicator;
 	wp_die();
 
 
