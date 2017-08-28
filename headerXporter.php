@@ -19,6 +19,7 @@ register_deactivation_hook( __FILE__, 'hxp_plugin_deactivation' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-collectData.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-save-images-to-local.php' );
 
+
 function hxp_main_export_screen() {
 	wp_enqueue_style( 'hxp_costume_style' );
 	wp_enqueue_script( 'hxp_costume_script' );
@@ -89,9 +90,8 @@ function hxp_add_stylesheet() {
 function hxp_add_javascript() {
 	wp_register_script( 'hxp_costume_script', plugins_url( 'assets/js/hxp-functions.js', __FILE__ ), array( 'jquery' ), '20170812', 'true' );
 	wp_localize_script( 'hxp_costume_script', 'hxp_ajax_object', array(
-		'ajax_url' => admin_url( 'admin-ajax.php' ),
-		'we_value' => 1234,
-		'plugin_url' => plugins_url('', __FILE__)
+		'ajax_url'   => admin_url( 'admin-ajax.php' ),
+		'plugin_url' => plugins_url( '', __FILE__ )
 	) );
 }
 
@@ -100,7 +100,10 @@ function hxp_plugin_deactivation() {
 	wp_deregister_style( 'hxp_costume_style' );
 	wp_dequeue_script( 'hxp_costume_script' );
 	wp_deregister_script( 'hxp_costume_script' );
+
+
 }
+
 
 
 ?>

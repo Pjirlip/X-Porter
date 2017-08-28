@@ -15,9 +15,13 @@ jQuery(document).ready(() => {
     let hxp_fonts                            = null;
     let hxp_exports_fonts                    = [];
     let hostname                             = window.location.host;
-    let hxp_images                           = [];
     let hxp_export_images                    = [];
-    let plugin_path = hxp_ajax_object.plugin_url;
+    let plugin_path                          = hxp_ajax_object.plugin_url;
+    let exportButton                         = jQuery('#exportButton');
+
+    exportButton.click(() => {
+        create_export_bundel();
+    });
 
     jQuery('#loadButton').click(() => {
 
@@ -29,18 +33,15 @@ jQuery(document).ready(() => {
         hxp_all_for_export_selected_Elements = [];
         hxp_fonts                            = null;
         hxp_exports_fonts                    = [];
-        hxp_images                           = [];
 
         jQuery('#unorderedList').empty();
 
         let data = {
-            'action':   'hxp_collectData',
-            'whatever': hxp_ajax_object.we_value
+            'action': 'hxp_collectData',
         };
 
         jQuery.post(hxp_ajax_object.ajax_url, data, (hxp_database_result) => {
 
-            console.log("URL:" + plugin_path);
             let hxp_all_imported_Elements = jQuery.parseJSON(hxp_database_result);
 
             if (hxp_all_imported_Elements === undefined || hxp_all_imported_Elements.length === 0)
@@ -77,13 +78,6 @@ jQuery(document).ready(() => {
                     }
                 });
 
-                hxp_all_Elements.forEach((element, index, arr) => {
-                    findImages(element.post_content);
-                });
-                console.log(hxp_images);
-
-                console.log(hxp_images);
-
                 jQuery('#unorderedList input').change(() => {
 
                     hxp_clearExports();
@@ -93,12 +87,12 @@ jQuery(document).ready(() => {
                     {
                         hxp_get_all_used_colors();
                         hxp_get_all_used_fonts();
-                        jQuery('#exportButton').prop("disabled", false);
+                        exportButton.prop("disabled", false);
                     }
                     else
                     {
                         hxp_all_for_export_selected_Elements = [];
-                        jQuery('#exportButton').prop("disabled", true);
+                        exportButton.prop("disabled", true);
                     }
 
                 });
@@ -178,12 +172,11 @@ jQuery(document).ready(() => {
             hxp_all_for_export_selected_Elements.push(hxp_all_Elements[index]);
         });
 
-        hxp_all_for_export_selected_Elements.forEach((element) =>
-        {
-          findImages(element.post_content);
+        hxp_all_for_export_selected_Elements.forEach((element) => {
+            findImages(element.post_content);
         });
 
-        let set = new Set(hxp_export_images);
+        let set           = new Set(hxp_export_images);
         hxp_export_images = Array.from(set);
         list_all_images_from_selection();
 
@@ -195,20 +188,51 @@ jQuery(document).ready(() => {
     {
         let regEx    = new RegExp('"(?:https?://)' + hostname + '(?:.+?)"', 'g');
         searchstring = searchstring.replace(/\\/g, '');
-        let matches = searchstring.match(regEx);
+        let matches  = searchstring.match(regEx);
         if (matches !== null)
         {
             matches.forEach((item) => hxp_export_images.push(item));
         }
     }
+
     function list_all_images_from_selection()
     {
-        hxp_export_images.forEach((image_url) =>
-        {
-           jQuery('#needetImagesList').append('<li><p>' + image_url + '</p><div class="imagePreview" style="background: url(' + image_url.replace(/"/g, '') + '); width: 100%; height: 100%"> </div></li>');
+        hxp_export_images.forEach((image_url) => {
+            jQuery('#needetImagesList').append('<li><p>' + image_url + '</p><div class="imagePreview" style="background: url(' + image_url.replace(/"/g, '') + '); width: 100%; height: 100%"> </div></li>');
         });
     }
 
+    function loadImages(image_url)
+    {
+        console.log(image_url);
+        
 
+        hxp_export_images.forEach()
+
+
+        let index      = image_url.lastIndexOf('/') + 1;
+        let image_name = image_url.substr(index);
+
+        let data = {
+            'action':     'hxp_save_image',
+            'full_url':   image_url,
+            'image_name': image_name
+        };
+
+        jQuery.post(hxp_ajax_object.ajax_url, data, (response) => {
+            if (response === "error_image_parsing")
+            {
+                alert('Something went wrong by packing image:' + image_name);
+            }
+        });
+    }
+
+    function create_export_bundel()
+    {
+        console.log("Button Clicked");
+        hxp_export_images.forEach((image_url) =>
+            loadImages(image_url.replace(/"/g, '')));
+
+    }
 
 });

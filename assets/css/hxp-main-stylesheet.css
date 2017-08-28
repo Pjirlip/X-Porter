@@ -143,8 +143,7 @@
     overflow: hidden;
 }
 
-.imagePreview
-{
+.imagePreview {
     background-size: contain !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
