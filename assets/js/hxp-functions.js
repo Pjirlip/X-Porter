@@ -221,18 +221,17 @@ jQuery(document).ready(() => {
         };
 
         jQuery.post(hxp_ajax_object.ajax_url, data, (response) => {
-            console.log(response);
             if (response == true)
             {
-                console.info("Copy Images went well")
+                console.info("Copy Images went well");
             }
             else
             {
-                alert("Something went wrong: Copy Images to export Folder")
+                alert("Something went wrong: Copy Images to export Folder");
             }
         });
 
-        let response = {};
+        let response   = {};
         response.names = hxp_image_names;
         response.paths = hxp_image_urls;
         return response;
@@ -242,15 +241,36 @@ jQuery(document).ready(() => {
     {
         let response = loadImages();
 
-        let export_object       = {};
-        export_object.fonts     = hxp_exports_fonts;
-        export_object.colors    = hxp_export_colors;
-        export_object.elements  = hxp_all_for_export_selected_Elements;
+        let export_object         = {};
+        export_object.fonts       = hxp_exports_fonts;
+        export_object.colors      = hxp_export_colors;
+        export_object.elements    = hxp_all_for_export_selected_Elements;
         export_object.oldhostname = hxp_hostname;
-        export_object.imageNames = response.names;
-        export_object.imagePaths = response.paths;
+        export_object.imageNames  = response.names;
+        export_object.imagePaths  = response.paths;
 
-        console.log(export_object)
+        //console.log(JSON.stringify(export_object));
+
+        let data = {
+            'action':      'hxp_save_json',
+            'json_object': JSON.stringify(export_object)
+        };
+
+        jQuery.post(hxp_ajax_object.ajax_url, data, (response) => {
+            if (response == true)
+            {
+                console.info("Write JSON Configuration File went well");
+
+                jQuery.post(hxp_ajax_object.ajax_url, {'action': 'hxp_create_export_bundle'}, (response) => {
+                    console.log(response);
+                });
+            }
+            else
+            {
+                alert("Something went wrong: Creating JSON Configuration File");
+            }
+        });
+
     }
 
 });

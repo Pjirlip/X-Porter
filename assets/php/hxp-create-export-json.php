@@ -16,16 +16,18 @@ function hxp_save_json() {
 
 	$hxp_upload_dir = wp_upload_dir();
 
-	$hxp_success_indicator = true;
+	$hxp_configuration_json = stripslashes( $_POST['json_object'] );
 
-	$hxp_configuration_json  =  stripslashes( $_POST['json_object'] );
-
-	$hxp_fp = fopen($hxp_upload_dir['basedir'] . '/hxp_exports/configuration.json', 'w');
-	fwrite($hxp_fp, $hxp_configuration_json);
-	fclose($hxp_fp);
+	$hxp_fp = fopen( $hxp_upload_dir['basedir'] . '/hxp_exports/configuration.json', 'w' );
+	$hxp_write_success = fwrite( $hxp_fp, $hxp_configuration_json );
+	fclose( $hxp_fp );
 
 
-	echo $hxp_success_indicator;
+	if($hxp_write_success !== false)
+	{
+		$hxp_write_success = true;
+	}
+	echo $hxp_write_success;
 	wp_die();
 
 

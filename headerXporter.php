@@ -19,6 +19,8 @@ register_deactivation_hook( __FILE__, 'hxp_plugin_deactivation' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-collectData.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-save-images-to-local.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-delete-directorys-function.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-create-export-json.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-create-export-zip.php' );
 
 
 function hxp_main_export_screen() {
@@ -103,6 +105,7 @@ function hxp_plugin_deactivation() {
 	wp_deregister_script( 'hxp_costume_script' );
 	$hxp_upload_dir = wp_upload_dir();
 	hxp_rrmdir($hxp_upload_dir['basedir'] . '/hxp_exports');
+	hxp_rrmdir($hxp_upload_dir['basedir'] . '/hxp_imports');
 
 }
 

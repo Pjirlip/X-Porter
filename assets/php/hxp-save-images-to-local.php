@@ -22,8 +22,8 @@ function hxp_save_images() {
 
 	$hxp_success_indicator = true;
 
-	$hxp_image_urls  = json_decode( stripslashes( $_POST['image_urls'] ), true );
-	$hxp_image_names = json_decode( stripslashes( $_POST['image_names'] ), true );
+	$hxp_image_urls  = json_decode( wp_unslash( $_POST['image_urls'] ), true );
+	$hxp_image_names = json_decode( wp_unslash( $_POST['image_names'] ), true );
 
 
 	foreach ( $hxp_image_urls as $hxp_index => $hxp_value ) {
