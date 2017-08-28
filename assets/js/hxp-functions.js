@@ -130,7 +130,6 @@ jQuery(document).ready(() => {
             hxp_fonts.readable_value.forEach((font, index, arr) => {
 
                 if (hxp_all_for_export_selected_Elements.some((element, ind, array) => {
-                        console.log(font);
                         return (element.post_content.indexOf('font_family":"' + font._id) !== -1);
                     }))
                 {
@@ -180,7 +179,7 @@ jQuery(document).ready(() => {
         hxp_export_images = Array.from(set);
         list_all_images_from_selection();
 
-        console.log(hxp_all_for_export_selected_Elements);
+        //console.log(hxp_all_for_export_selected_Elements);
 
     }
 
@@ -202,36 +201,49 @@ jQuery(document).ready(() => {
         });
     }
 
-    function loadImages(image_url)
+    function loadImages()
     {
-        console.log(image_url);
-        
 
-        hxp_export_images.forEach()
+        let hxp_image_urls  = [];
+        let hxp_image_names = [];
 
+        hxp_export_images.forEach((image_url) => {
+            let stripped_image_url = image_url.replace(/"/g, '');
+            let index              = stripped_image_url.lastIndexOf('/') + 1;
+            hxp_image_names.push(stripped_image_url.substr(index));
+            hxp_image_urls.push(stripped_image_url);
+        });
 
-        let index      = image_url.lastIndexOf('/') + 1;
-        let image_name = image_url.substr(index);
+        //hxp_loading_exports.hxp_image_urls  = hxp_image_urls;
+        //hxp_loading_exports.hxp_image_names = hxp_image_names;
+
+        //let hxp_stringifyed_object = JSON.stringify(hxp_loading_exports);
+
+        //console.log(hxp_loading_exports);
 
         let data = {
-            'action':     'hxp_save_image',
-            'full_url':   image_url,
-            'image_name': image_name
+            'action':             'hxp_save_image',
+            'image_urls': JSON.stringify(hxp_image_urls),
+            'image_names': JSON.stringify(hxp_image_names),
         };
 
+        console.log(data);
+
         jQuery.post(hxp_ajax_object.ajax_url, data, (response) => {
-            if (response === "error_image_parsing")
+            if (response === "false")
             {
-                alert('Something went wrong by packing image:' + image_name);
+                alert('Something went wrong by packing images');
             }
+            else
+                {
+                    console.log(response);
+                }
         });
     }
 
     function create_export_bundel()
     {
-        console.log("Button Clicked");
-        hxp_export_images.forEach((image_url) =>
-            loadImages(image_url.replace(/"/g, '')));
+        loadImages();
 
     }
 
