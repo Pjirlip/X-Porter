@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: XPorter
+Plugin Name: X-Porter
 Plugin URI: https://dippel.rocks
 Description: A Plugin to export and import X Pro (Themeco) Theme Headers and Footers.
 Version: 1.0.0
@@ -12,11 +12,12 @@ Licencse: MIT
 defined( 'ABSPATH' ) || exit();
 
 
-add_action( 'admin_menu', 'hxp_HeaderXPorter' );
+add_action( 'admin_menu', 'hxp_XPorter' );
 add_action( 'admin_enqueue_scripts', 'hxp_add_stylesheet' );
 add_action( 'admin_enqueue_scripts', 'hxp_add_javascript' );
 register_deactivation_hook( __FILE__, 'hxp_plugin_deactivation' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-collectData.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-save-images-to-local.php' );
 
 function hxp_main_export_screen() {
 	wp_enqueue_style( 'hxp_costume_style' );
@@ -26,7 +27,7 @@ function hxp_main_export_screen() {
 	<div class="hxp">
 		<div id="headertext">
 			<div id="innerHeaderContainer">
-				<h1> Willkommen beim X-Exporter</h1>
+				<h1> Willkommen beim X-Porter</h1>
 				<p>Mit diesem Plugin lassen sich mit X Pro erstellte Header und Footer spielend einfach exportieren und
 					importieren.</p></div>
 		</div>
@@ -53,6 +54,11 @@ function hxp_main_export_screen() {
 				<ul id="neededFontsList">
 				</ul>
 			</div>
+			<div id="neededImagesArea">
+				<h3> Dazugehörige Bilder:</h3>
+				<ul id="needetImagesList">
+				</ul>
+			</div>
 
 			<div id="downloadButtonArea">
 				<button id="exportButton" disabled>Ausgewählte Elemente exportieren</button>
@@ -71,9 +77,9 @@ function hxp_main_import_screen() {
 	}
 }
 
-function hxp_HeaderXPorter() {
-	add_menu_page( 'HeaderXPorter', 'HeaderXPorter', '10', __FILE__, 'hxp_main_export_screen' );
-	add_submenu_page( __FILE__, 'Import Header', 'ImportHeader', '10', 'hxp_second_level_slug', 'hxp_main_import_screen' );
+function hxp_XPorter() {
+	add_menu_page( 'X-Porter', 'X-Porter', '10', __FILE__, 'hxp_main_export_screen' );
+	add_submenu_page( __FILE__, 'Importer', 'Importer', '10', 'hxp_second_level_slug', 'hxp_main_import_screen' );
 }
 
 function hxp_add_stylesheet() {
@@ -84,7 +90,8 @@ function hxp_add_javascript() {
 	wp_register_script( 'hxp_costume_script', plugins_url( 'assets/js/hxp-functions.js', __FILE__ ), array( 'jquery' ), '20170812', 'true' );
 	wp_localize_script( 'hxp_costume_script', 'hxp_ajax_object', array(
 		'ajax_url' => admin_url( 'admin-ajax.php' ),
-		'we_value' => 1234
+		'we_value' => 1234,
+		'plugin_url' => plugins_url('', __FILE__)
 	) );
 }
 

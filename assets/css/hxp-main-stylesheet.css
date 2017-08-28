@@ -104,48 +104,65 @@
     display: none;
 }
 
-#createDownloadArea
-{
+#createDownloadArea {
     padding: 0 20px;
     grid-area: createDownload;
     display: grid;
-    grid-template-columns: 1fr 1fr 200px;
-    grid-template-areas: "listColors listFonts downloadButton";
+    grid-template-columns: 1fr 1fr 1fr 200px;
+    grid-template-areas: "listColors listFonts listImages downloadButton";
     grid-gap: 0 10px;
 }
 
-#neededColorsArea
-{
+#neededColorsArea {
     grid-area: listColors;
     display: grid;
     grid-template-rows: 40px 1fr;
 }
 
-#neededFontsArea
-{
-
+#neededFontsArea {
     grid-area: listFonts;
     display: grid;
     grid-template-rows: 40px 1fr;
 }
 
-#neededFontsArea ul, #neededColorsArea ul
-{
+#neededImagesArea {
+    grid-area: listImages;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+}
+
+#neededFontsArea ul, #neededColorsArea ul, #neededImagesArea ul {
     border: solid 3px #DBE2EF;
 }
 
-#neededColorsArea ul li
-{
+#neededColorsArea ul li, #neededImagesArea ul li, #neededFontsArea ul li {
     padding-left: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 50px;
     justify-items: flex-start;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-#downloadButtonArea
+.imagePreview
 {
+    background-size: contain !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+
+#neededColorsArea ul li {
+    grid-template-columns: 1fr 1fr 50px;
+}
+
+#neededImagesArea ul li {
+    grid-template-columns: 1fr 50px;
+}
+
+#neededFontsArea ul li {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#downloadButtonArea {
     grid-area: downloadButton;
     display: inline-grid;
     align-items: flex-end;
