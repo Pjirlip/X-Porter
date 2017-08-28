@@ -14,7 +14,7 @@ jQuery(document).ready(() => {
     let hxp_export_colors                    = [];
     let hxp_fonts                            = null;
     let hxp_exports_fonts                    = [];
-    let hostname                             = window.location.host;
+    let hxp_hostname                         = window.location.host;
     let hxp_export_images                    = [];
     let plugin_path                          = hxp_ajax_object.plugin_url;
     let exportButton                         = jQuery('#exportButton');
@@ -185,7 +185,7 @@ jQuery(document).ready(() => {
 
     function findImages(searchstring)
     {
-        let regEx    = new RegExp('"(?:https?://)' + hostname + '(?:.+?)"', 'g');
+        let regEx    = new RegExp('"(?:https?://)' + hxp_hostname + '(?:.+?)"', 'g');
         searchstring = searchstring.replace(/\\/g, '');
         let matches  = searchstring.match(regEx);
         if (matches !== null)
@@ -214,37 +214,43 @@ jQuery(document).ready(() => {
             hxp_image_urls.push(stripped_image_url);
         });
 
-        //hxp_loading_exports.hxp_image_urls  = hxp_image_urls;
-        //hxp_loading_exports.hxp_image_names = hxp_image_names;
-
-        //let hxp_stringifyed_object = JSON.stringify(hxp_loading_exports);
-
-        //console.log(hxp_loading_exports);
-
         let data = {
-            'action':             'hxp_save_image',
-            'image_urls': JSON.stringify(hxp_image_urls),
+            'action':      'hxp_save_images',
+            'image_urls':  JSON.stringify(hxp_image_urls),
             'image_names': JSON.stringify(hxp_image_names),
         };
 
-        console.log(data);
-
         jQuery.post(hxp_ajax_object.ajax_url, data, (response) => {
-            if (response === "false")
+            console.log(response);
+            if (response == true)
             {
-                alert('Something went wrong by packing images');
+                console.info("Copy Images went well")
             }
             else
-                {
-                    console.log(response);
-                }
+            {
+                alert("Something went wrong: Copy Images to export Folder")
+            }
         });
+
+        let response = {};
+        response.names = hxp_image_names;
+        response.paths = hxp_image_urls;
+        return response;
     }
 
     function create_export_bundel()
     {
-        loadImages();
+        let response = loadImages();
 
+        let export_object       = {};
+        export_object.fonts     = hxp_exports_fonts;
+        export_object.colors    = hxp_export_colors;
+        export_object.elements  = hxp_all_for_export_selected_Elements;
+        export_object.oldhostname = hxp_hostname;
+        export_object.imageNames = response.names;
+        export_object.imagePaths = response.paths;
+
+        console.log(export_object)
     }
 
 });
