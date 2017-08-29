@@ -68,6 +68,7 @@ function hxp_main_export_screen() {
 				<button id="exportButton" disabled>Ausgewählte Elemente exportieren</button>
 			</div>
 		</div>
+		<div id="hxpOverlay"><h1 id="oHeader">Exportiere Elemente</h1> <div id="oProgressContainer" ><div id="oLoader"> </div> <progress id="oProgressBar" value="0" max="100"></progress> </div><p id="oText">Some Text</p><a id="oButton" download href="<?php echo content_url( 'uploads/hxp_exports/export.zip') ?>" disabled>Download ZIP</a></div>
 	</div>
 	<?php
 }
@@ -94,7 +95,6 @@ function hxp_add_javascript() {
 	wp_register_script( 'hxp_costume_script', plugins_url( 'assets/js/hxp-functions.js', __FILE__ ), array( 'jquery' ), '20170812', 'true' );
 	wp_localize_script( 'hxp_costume_script', 'hxp_ajax_object', array(
 		'ajax_url'   => admin_url( 'admin-ajax.php' ),
-		'plugin_url' => plugins_url( '', __FILE__ )
 	) );
 }
 

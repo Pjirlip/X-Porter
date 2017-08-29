@@ -22,6 +22,69 @@
     grid-gap: 10px 0;
 }
 
+.hxp #hxpOverlay
+{
+    display: none;
+    grid-template-rows:  1fr 100px 80px 50px 50px 2fr;
+    grid-template-areas:  "spacer_1" "oHeader" "oProgressContainer" "oText" "oButton" "spacer_2";
+    justify-items: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: whitesmoke;
+    z-index: 1;
+}
+.hxp #oProgressContainer
+{
+    grid-area: oProgressContainer;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "oLoader" "oProgressBar";
+    justify-items: center;
+    align-items: center;
+}
+
+#hxp #oProgressBar
+{
+    grid-area: oProgressBar;
+}
+
+.hxp #oHeader
+{
+ grid-area: oHeader;
+}
+
+.hxp #oText
+{
+    grid-area: oText;
+}
+
+.hxp #oButton
+{
+    pointer-events: none;
+    color: lightgrey;
+    grid-area: oButton;
+}
+
+.hxp #oLoader
+{
+    grid-area: oLoader;
+    border: 4px solid lightgrey;
+    border-top: 4px solid #3F72AF;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .hxp h1, .hxp h2, .hxp h3, .hxp h4, .hxp h5, .hxp h6 {
     color: #3F72AF;
 }
