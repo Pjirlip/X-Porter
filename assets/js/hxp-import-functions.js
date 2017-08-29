@@ -12,7 +12,7 @@ jQuery(document).ready(() => {
 
     function hxp_upload_zip_file(event)
     {
-        let hxp_zip_file = jQuery('#zipFileInput')[0].files[0];
+        /*let hxp_zip_file = jQuery('#zipFileInput')[0].files[0];
         let formdata = new FormData();
 
         formdata.append('zip_file', hxp_zip_file);
@@ -51,7 +51,7 @@ jQuery(document).ready(() => {
         else
         {
             alert("Keine Datei ausgewählt!")
-        }
+        }*/
     }
 
 });

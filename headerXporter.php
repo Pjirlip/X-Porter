@@ -11,7 +11,6 @@ Licencse: MIT
 
 defined( 'ABSPATH' ) || exit();
 
-
 add_action( 'admin_menu', 'hxp_XPorter' );
 add_action( 'admin_enqueue_scripts', 'hxp_add_stylesheet' );
 add_action( 'admin_enqueue_scripts', 'hxp_add_javascript' );
@@ -22,6 +21,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-delete-directorys-fu
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-create-export-json.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-create-export-zip.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-upload-and-unzip-archive.php' );
+
 
 
 function hxp_main_export_screen() {
@@ -92,6 +92,7 @@ function hxp_main_import_screen() {
 	wp_enqueue_script( 'hxp_import_script' );
 
 	if ( is_admin() ) {
+
 		?>
 		<div class="hxp hxp-import">
 			<div id="uploadHeadertext">
@@ -100,7 +101,7 @@ function hxp_main_import_screen() {
 					<p>Hier können Sie erstelle Archive Importieren</p></div>
 			</div>
 
-			<form id="uploadForm" method="post" enctype="multipart/form-data" action="javascript:void(0);" >
+			<form id="uploadForm" method="post" enctype="multipart/form-data" action="<?php echo menu_page_url('hxp_second_level_slug', 0) . '&action=hxp_do_something' ?>" >
 				<label id="uploadAreaLabel">Ziehen Sie einfach per Drag & Drop das Zip-Archiv in diesen Bereich.
 					zum Auswählen. <input id="zipFileInput" type="file" name="zip_file" id="zip_file"/> </label>
 				<label id="warningHeading">Important Information!</label>

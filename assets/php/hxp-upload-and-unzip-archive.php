@@ -8,34 +8,29 @@
  */
 
 
-
 defined( 'ABSPATH' ) || exit();
 
-add_action( 'wp_ajax_hxp_upload_und_unzip_zip', 'hxp_upload_und_unzip_zip' );
+function hxp_do_something() {
 
-function hxp_upload_und_unzip_zip() {
 
-	$hxp_upload_dir = wp_upload_dir();
+		$hxp_upload_dir = wp_upload_dir();
 
-	hxp_rrmdir($hxp_upload_dir['basedir'] . '/hxp_imports');
+		hxp_rrmdir( $hxp_upload_dir['basedir'] . '/hxp_imports' );
 
-	mkdir( $hxp_upload_dir['basedir'] . '/hxp_imports', 0775, true );
+		mkdir( $hxp_upload_dir['basedir'] . '/hxp_imports', 0775, true );
 
-	$hxp_success_indicator = true;
 
-	$hxp_uploadet_zip = $_POST['zip_file'];
+		$file = current( $_FILES );
+		$zip  = new ZipArchive;
+		$res  = $zip->open( $file );
+		if ( $res === true ) {
+			$zip->extractTo( $hxp_upload_dir['basedir'] . '/hxp_imports' );
+			$zip->close();
+			echo 'woot!';
+		} else {
+			echo 'doh!';
+		}
 
-	/*$zip = new ZipArchive;
-	$res = $zip->open($hxp_uploadet_zip);
-	if ($res === TRUE) {
-		$zip->extractTo($hxp_upload_dir['basedir'] . '/hxp_imports');
-		$zip->close();
-		echo 'woot!';
-	} else {
-		echo 'doh!';
-	}*/
-	echo $hxp_uploadet_zip;
-	wp_die();
 
 
 }
