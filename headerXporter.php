@@ -101,9 +101,9 @@ function hxp_main_import_screen() {
 					<p>Hier können Sie erstelle Archive Importieren</p></div>
 			</div>
 
-			<form id="uploadForm" method="post" enctype="multipart/form-data" action="<?php echo menu_page_url('hxp_second_level_slug', 0) . '&action=hxp_do_something' ?>" >
+			<form id="uploadForm" method="post" enctype="multipart/form-data">
 				<label id="uploadAreaLabel">Ziehen Sie einfach per Drag & Drop das Zip-Archiv in diesen Bereich.
-					zum Auswählen. <input id="zipFileInput" type="file" name="zip_file" id="zip_file"/> </label>
+					zum Auswählen. <input id="zipFileInput" type="file" name="hxp_zip_file" id="zip_file"/> </label>
 				<label id="warningHeading">Important Information!</label>
 				<label id="warningUploadLabel">Sobald du auf den Button "Daten Importieren" klickst, wird das Archiv
 					das du ausgewählt hast ausgewertet und unwiederuflich in die Datenbank geschrieben. Lade nur mit
