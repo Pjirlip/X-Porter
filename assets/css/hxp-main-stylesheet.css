@@ -1,3 +1,5 @@
+/* Global Userstyles */
+
 #wpwrap {
     background: #F9F7F7;
 }
@@ -21,6 +23,8 @@
     padding-bottom: 20px;
     grid-gap: 10px 0;
 }
+
+/* Userstyles for Export Screen*/
 
 .hxp #hxpOverlay
 {
@@ -67,6 +71,8 @@
     pointer-events: none;
     color: lightgrey;
     grid-area: oButton;
+    border: solid 2px grey;
+    padding: 5px;
 }
 
 .hxp #oLoader
@@ -234,3 +240,81 @@
     background-color: #3F72AF;
     color: #DBE2EF;
 }
+
+/* Userstyles for Import Screen*/
+
+.hxp-import
+{
+    grid-template-rows: 110px 1fr !important;
+    grid-template-areas: "uploadHeading" "uploadForm"  !important;
+}
+
+.hxp-import #uploadHeadertext
+{
+    grid-area: uploadHeading;
+    text-align: center;
+    background-color: #112D4E;
+    color: #DBE2EF;
+    display: grid;
+    align-content: center;
+    overflow: hidden;
+
+}
+
+.hxp-import #uploadHeadertext h1
+{
+    color: #DBE2EF;
+}
+
+.hxp-import #uploadForm
+{
+    grid-area: uploadForm;
+    display: grid;
+    grid-template-rows: 4fr 50px 200px 100px 1fr;
+    justify-items: center;
+    padding: 50px;
+}
+
+.hxp-import #uploadAreaLabel
+{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+
+    background-color: lightgrey;
+    border: dashed 3px #3F72AF;
+}
+
+.hxp-import #warningHeading
+{
+    display: grid;
+    align-items: flex-end;
+    font-size: large;
+    color: #3F72AF;
+    padding-bottom: 5px;
+}
+
+.hxp-import #warningUploadLabel
+{
+    display: grid;
+    justify-self: center;
+    width: 30%;
+    background-color: rgba(255, 165, 0, 0.4);
+    border: solid 2px #FFA500;
+    align-items: center;
+    padding: 10px;
+}
+
+.hxp-import #submitButton
+{
+    display: grid;
+    justify-content: center;
+    align-self: center;
+    padding: 20px;
+    background-color: orangered;
+    color: whitesmoke;
+}
+
+
+
