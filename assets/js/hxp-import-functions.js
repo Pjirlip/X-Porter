@@ -8,9 +8,20 @@
 
 jQuery(document).ready(() => {
 
-    function crazyshit()
-    {
-        console.log("Hallo");
-    }
+    let hxp_file_input    = jQuery('#zip_file');
+    let hxp_submit_button = jQuery('#submitButton');
+
+    hxp_file_input.change(() => {
+        if (hxp_file_input.val() !== '')
+        {
+            hxp_submit_button.prop('disabled', false);
+            hxp_submit_button.addClass('hover');
+        }
+        else
+        {
+            hxp_submit_button.prop('disabled', true);
+            hxp_submit_button.removeClass('hover');
+        }
+    });
 
 });
