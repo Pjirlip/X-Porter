@@ -276,6 +276,7 @@ jQuery(document).ready(() => {
         export_object.imagePaths  = response.paths;
         export_object.imageShortPaths = response.shortPaths;
         export_object.httpsStatus = hxp_protocol_indicator;
+        export_object.pluginIndicator = 'HXP_PLUGIN_CREATED';
 
         //console.log(JSON.stringify(export_object));
 

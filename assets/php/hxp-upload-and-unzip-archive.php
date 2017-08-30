@@ -17,7 +17,7 @@ if ( isset( $_FILES['hxp_zip_file'] ) ) {
 
 
 function hxp_import_headers_and_footer() {
-	$hxp_copyImagesIndicator = true;
+
 
 	$hxp_upload_dir = wp_upload_dir();
 
@@ -29,29 +29,61 @@ function hxp_import_headers_and_footer() {
 
 
 	$hxp_zip      = new ZipArchive;
-	$hxp_resource = $hxp_zip->open( $hxp_upload_dir['basedir'] . '/hxp_imports/export.zip' );
+	$hxp_problems_indicator = $hxp_zip->open( $hxp_upload_dir['basedir'] . '/hxp_imports/export.zip' );
 
-	$hxp_zip->extractTo( $hxp_upload_dir['basedir'] . '/hxp_imports/' );
-	$hxp_zip->close();
+	if($hxp_problems_indicator != true)
+	{
+		echo '<script> alert("Import interrupted: Could not open ZIP-File Error Code: ' . $hxp_problems_indicator .' ")</script>';
+		return;
+	}
+
+	$hxp_problems_indicator = $hxp_zip->extractTo( $hxp_upload_dir['basedir'] . '/hxp_imports/' );
+
+	if($hxp_problems_indicator != true)
+	{
+		echo '<script> alert("Import interrupted: Could not extract ZIP-File.")</script>';
+		return;
+	}
+
+	$hxp_problems_indicator = $hxp_zip->close();
+
+	if($hxp_problems_indicator != true)
+	{
+		echo '<script> alert("Import interrupted: Could not close ZIP-File Error Code: ' . $hxp_problems_indicator .' ")</script>';
+		return;
+	}
 
 
 	$hxp_configuration_string = file_get_contents( $hxp_upload_dir['basedir'] . '/hxp_imports/configuration.json' );
 	$hxp_configuration        = json_decode( $hxp_configuration_string, true );
+
+	$hxp_x_porter_plugin_indicator = $hxp_configuration['pluginIndicator'];
+	if($hxp_x_porter_plugin_indicator != 'HXP_PLUGIN_CREATED')
+	{
+		echo '<script> alert("Import interrupted: This ZIP_File wasn\'t created by the X-Porter plugin. Don\'t upload unsupported or unknown ZIP-Archives!  ")</script>';
+		return;
+	}
+
 
 	$hxp_imported_fonts             = $hxp_configuration['fonts'];
 	$hxp_imported_colors            = $hxp_configuration['colors'];
 	$hxp_imported_elements          = $hxp_configuration['elements'];
 	$hxp_imported_oldHostname       = $hxp_configuration['oldhostname'];
 	$hxp_imported_imageNames        = $hxp_configuration['imageNames'];
-	$hxp_imported_image_Paths       = $hxp_configuration['imagePaths'];
 	$hxp_imported_short_image_Paths = $hxp_configuration['imageShortPaths'];
 	$hxp_new_hostname               = $_SERVER['HTTP_HOST'];
 	$hxp_old_host_was_https         = $hxp_configuration['httpsStatus'];
 	$hxp_new_host_is_https          = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) || $_SERVER['SERVER_PORT'] == 443;
 
 
+
+
+
+
+
+
 	foreach ( $hxp_imported_short_image_Paths as $key => $value ) {
-		$hxp_copyImagesIndicator = copy( $hxp_upload_dir['basedir'] . '/hxp_imports/images/' . $hxp_imported_imageNames[ $key ], $hxp_upload_dir['basedir'] . '/' . $value );
+		$hxp_problems_indicator = copy( $hxp_upload_dir['basedir'] . '/hxp_imports/images/' . $hxp_imported_imageNames[ $key ], $hxp_upload_dir['basedir'] . '/' . $value );
 		$filename                = $hxp_upload_dir['basedir'] . '/' . $value;
 
 
@@ -73,9 +105,19 @@ function hxp_import_headers_and_footer() {
 
 	}
 
+	if ($hxp_problems_indicator == false)
+	{
+		echo '<script> alert("Import interrupted: Images could not be copied to the uploads folder.")</script>';
+		return;
+	}
+
 	$hxp_date = current_time( 'mysql' );
 
-	//ADD:  ELEMENTS
+
+
+
+	//ADD: ELEMENTS
+	$hxp_problems_indicator = 1;
 	foreach ( $hxp_imported_elements as $key => $value ) {
 		$hxp_guid = $value['guid'];
 
@@ -122,12 +164,19 @@ function hxp_import_headers_and_footer() {
 			'comment_count'         => $value['comment_count'],
 		);
 
-		wp_insert_post( $postarr );
+		$hxp_problems_indicator = wp_insert_post( $postarr );
 
+	}
+
+	if ($hxp_problems_indicator == 0)
+	{
+		echo '<script> alert("Import interrupted: Could not insert Elements into database (wp_insert_post)")</script>';
+		return;
 	}
 
 
 	//UPDATE: COLORS OPTION
+	$hxp_problems_indicator = true;
 	$hxp_old_colors = get_option( 'cornerstone_color_items' );
 	if ( false != $hxp_old_colors ) {
 		$hxp_old_colors = json_decode( stripslashes( $hxp_old_colors ) );
@@ -145,8 +194,13 @@ function hxp_import_headers_and_footer() {
 		$hxp_new_generated_colors_array = $hxp_imported_colors;
 	}
 
-	update_option( 'cornerstone_color_items', addslashes( json_encode( $hxp_new_generated_colors_array ) ) );
+	$hxp_problems_indicator = update_option( 'cornerstone_color_items', addslashes( json_encode( $hxp_new_generated_colors_array ) ) );
 
+	if ($hxp_problems_indicator == false)
+	{
+		echo '<script> alert("Import interrupted: Elements are imported, but custom colors could not be imported")</script>';
+		return;
+	}
 
 	//UPDATE: FONTS OPTION
 	$hxp_old_fonts = get_option( 'cornerstone_font_items' );
@@ -165,8 +219,18 @@ function hxp_import_headers_and_footer() {
 		$hxp_new_generated_fonts_array = $hxp_imported_fonts;
 	}
 
-	update_option( 'cornerstone_font_items', addslashes( json_encode( $hxp_new_generated_fonts_array ) ) );
+	$hxp_problems_indicator = update_option( 'cornerstone_font_items', addslashes( json_encode( $hxp_new_generated_fonts_array ) ) );
 
+	if ($hxp_problems_indicator == false)
+	{
+		echo '<script> alert("Import interrupted: Elements and custom colors are imported, but custom fonts could not be imported")</script>';
+		return;
+	}
+
+	hxp_rrmdir( $hxp_upload_dir['basedir'] . '/hxp_exports' );
+	hxp_rrmdir( $hxp_upload_dir['basedir'] . '/hxp_imports' );
+
+	echo '<script> alert("Import finished without problems!")</script>';
 }
 
 
