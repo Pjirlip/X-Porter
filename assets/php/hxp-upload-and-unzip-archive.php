@@ -223,7 +223,7 @@ function hxp_import_headers_and_footer() {
 			return;
 		}
 	}
-	
+
 	hxp_rrmdir( $hxp_upload_dir['basedir'] . '/hxp_exports' );
 	hxp_rrmdir( $hxp_upload_dir['basedir'] . '/hxp_imports' );
 

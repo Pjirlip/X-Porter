@@ -194,7 +194,7 @@ jQuery(document).ready(() => {
 
     function findImages(searchstring)
     {
-        let regEx    = new RegExp('"(?:https?://)' + hxp_hostname + '(?:.+?)"', 'g');
+        let regEx    = new RegExp('"(?:https?://)' + hxp_hostname + '(?:[^\\.]+?)(?:.jpg|.gif|.png)"', 'g');
         searchstring = searchstring.replace(/\\/g, '');
         let matches  = searchstring.match(regEx);
         if (matches !== null)
