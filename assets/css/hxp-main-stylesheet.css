@@ -270,29 +270,45 @@
 {
     grid-area: uploadForm;
     display: grid;
-    grid-template-rows: 4fr 50px 200px 100px 1fr;
+    grid-template-rows: 50px 4fr 50px 200px 100px 1fr;
+    grid-template-areas: 'uploadInfoHeader' "uploadField" "uploadWarningHeader" "warningUploadLabel" "uploadSubmitButton" "spacer_upload";
     justify-items: center;
     padding: 50px;
+    text-align: center;
 }
 
-.hxp-import #uploadAreaLabel
+.hxp-import #zip_file
 {
+    grid-area: uploadField;
     display: grid;
     justify-items: center;
+    justify-self: center;
     align-items: center;
     width: 100%;
-
     background-color: lightgrey;
     border: dashed 3px #3F72AF;
 }
 
-.hxp-import #warningHeading
+
+
+.hxp-import #warningHeading, .hxp-import #infoUploadHeader
 {
+
     display: grid;
     align-items: flex-end;
     font-size: large;
     color: #3F72AF;
     padding-bottom: 5px;
+}
+
+.hxp-import #infoUploadHeader
+{
+    grid-area: uploadInfoHeader;
+}
+
+.hxp-import #warningHeading
+{
+    grid-area: uploadWarningHeader;
 }
 
 .hxp-import #warningUploadLabel
@@ -304,17 +320,43 @@
     border: solid 2px #FFA500;
     align-items: center;
     padding: 10px;
+    text-align: justify;
+    font-weight: bold;
+}
+
+.hxp-import #warningUploadLabel
+{
+    grid-area: warningUploadLabel;
 }
 
 .hxp-import #submitButton
 {
+    grid-area: uploadSubmitButton;
     display: grid;
     justify-content: center;
     align-self: center;
     padding: 20px;
-    background-color: orangered;
+    background-color: lightgrey;
     color: whitesmoke;
+
 }
+
+.hxp-import .hover
+{
+    background-color: orangered !important;
+    transition: background 2s;
+    cursor: pointer;
+}
+
+.hxp-import .hover:hover
+{
+    transition: background 1s, border 2s !important;
+    background: #7a2100 !important;
+    border: solid 2px red;
+
+}
+
+
 
 
 

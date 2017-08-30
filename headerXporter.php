@@ -2,7 +2,7 @@
 /*
 Plugin Name: X-Porter
 Plugin URI: https://dippel.rocks
-Description: A Plugin to export and import X Pro (Themeco) Theme Headers and Footers.
+Description: A Plugin to export and import X Pro (Themeco) created Theme Headers and Footers.
 Version: 1.0.0
 Author: Philipp Dippel
 Author URI: https://dippel.rocks
@@ -35,44 +35,43 @@ function hxp_main_export_screen() {
 	<div class="hxp">
 		<div id="headertext">
 			<div id="innerHeaderContainer">
-				<h1> Willkommen beim X-Porter</h1>
-				<p>Mit diesem Plugin lassen sich mit X Pro erstellte Header und Footer spielend einfach exportieren und
-					importieren.</p></div>
+				<h1> Welcome to the X-Porter</h1>
+				<p>This plugin allows you to easily export and import header and footer created with X Pro</p></div>
 		</div>
 		<div id="generateList">
-			<h3 id="firstStepHeading"> Header & Footer auswählen</h3>
+			<h3 id="firstStepHeading"> Select Header & Footer</h3>
 			<div id="progressIndicator"></div>
-			<button id="loadButton">Elemente laden</button>
+			<button id="loadButton">Load Elements</button>
 			<div id="listElements">
-				<div class="tableHead"><p>Auswahl</p>
+				<div class="tableHead"><p>Selection</p>
 					<p>ID</p>
 					<p>Name</p>
-					<p>Typ</p></div>
+					<p>Type</p></div>
 				<ul id="unorderedList"></ul>
 			</div>
 		</div>
 		<div id="createDownloadArea">
 			<div id="neededColorsArea">
-				<h3>Dazugehörige Farben:</h3>
+				<h3>Associated Colors:</h3>
 				<ul id="neededColorsList">
 				</ul>
 			</div>
 			<div id="neededFontsArea">
-				<h3> Dazugehörige Schriften:</h3>
+				<h3> Associated Fonts:</h3>
 				<ul id="neededFontsList">
 				</ul>
 			</div>
 			<div id="neededImagesArea">
-				<h3> Dazugehörige Bilder:</h3>
+				<h3> Associated Images:</h3>
 				<ul id="needetImagesList">
 				</ul>
 			</div>
 
 			<div id="downloadButtonArea">
-				<button id="exportButton" disabled>Ausgewählte Elemente exportieren</button>
+				<button id="exportButton" disabled>Export selected Elements</button>
 			</div>
 		</div>
-		<div id="hxpOverlay"><h1 id="oHeader">Exportiere Elemente</h1>
+		<div id="hxpOverlay"><h1 id="oHeader">Exporting Elements...</h1>
 			<div id="oProgressContainer">
 				<div id="oLoader"></div>
 				<progress id="oProgressBar" value="0" max="100"></progress>
@@ -97,19 +96,17 @@ function hxp_main_import_screen() {
 		<div class="hxp hxp-import">
 			<div id="uploadHeadertext">
 				<div id="innerUploadHeaderContainer">
-					<h1> Willkommen beim X-Porter</h1>
-					<p>Hier können Sie erstelle Archive Importieren</p></div>
+					<h1> Welcome to the X-Porter</h1>
+					<p>This is the Importer. Here you can upload your created Zip-Archives.</p></div>
 			</div>
 
 			<form id="uploadForm" method="post" enctype="multipart/form-data">
-				<label id="uploadAreaLabel">Ziehen Sie einfach per Drag & Drop das Zip-Archiv in diesen Bereich.
-					zum Auswählen. <input id="zipFileInput" type="file" name="hxp_zip_file" id="zip_file"/> </label>
-				<label id="warningHeading">Important Information!</label>
-				<label id="warningUploadLabel">Sobald du auf den Button "Daten Importieren" klickst, wird das Archiv
-					das du ausgewählt hast ausgewertet und unwiederuflich in die Datenbank geschrieben. Lade nur mit
-					diesem Plugin erstellte Archive hoch, außerdem sollteste du keine Fremden Archive hochladen! Es
-					ist empfehlenswert vor dem Importieren ein Backup der Datenbank anzulegen.</label>
-				<input id="submitButton" type="submit" name="submit" value="Daten Importieren">
+				<label id="infoUploadHeader">Drag & Drop your Zip File in the highlighted Area or use the Button for File selection </label>
+				<input type="file" name="hxp_zip_file" id="zip_file"/>
+				<label id="warningHeading">Important!</label>
+				<label id="warningUploadLabel">As soon as you click on the "Import Data" button, the Zip-File you selected will be evaluated and written to the database. Only upload Files created with this plugin. Also you shouldn't
+					upload files from strangers. It's recommended to create a backup of the database before importing. Also you shouldn't import on an life-site directly, use an staging-site or an local environment. </label>
+				<input id="submitButton" type="submit" name="submit" value="Import Data" disabled>
 			</form>
 		</div>
 		<?php
