@@ -215,12 +215,16 @@ jQuery(document).ready(() => {
         hxp_overlay_text.text("Collecting all Images...");
         let hxp_image_urls  = [];
         let hxp_image_names = [];
+        let hxp_image_short_urls = [];
 
         hxp_export_images.forEach((image_url) => {
             let stripped_image_url = image_url.replace(/"/g, '');
             let index              = stripped_image_url.lastIndexOf('/') + 1;
             hxp_image_names.push(stripped_image_url.substr(index));
             hxp_image_urls.push(stripped_image_url);
+            index = stripped_image_url.indexOf('uploads') + 8;
+            stripped_image_url = stripped_image_url.substring(index);
+            hxp_image_short_urls.push(stripped_image_url);
         });
 
         let data = {
@@ -245,6 +249,7 @@ jQuery(document).ready(() => {
         let response   = {};
         response.names = hxp_image_names;
         response.paths = hxp_image_urls;
+        response.shortPaths = hxp_image_short_urls;
         return response;
     }
 
@@ -265,6 +270,7 @@ jQuery(document).ready(() => {
         export_object.oldhostname = hxp_hostname;
         export_object.imageNames  = response.names;
         export_object.imagePaths  = response.paths;
+        export_object.imageShortPaths = response.shortPaths;
 
         //console.log(JSON.stringify(export_object));
 
