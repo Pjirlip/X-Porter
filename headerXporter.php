@@ -46,8 +46,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-create-export-json.p
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-create-export-zip.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-upload-and-unzip-archive.php' );
 
-
-
 function hxp_main_export_screen() {
 
 	wp_dequeue_style( 'hxp_custom_style' );
