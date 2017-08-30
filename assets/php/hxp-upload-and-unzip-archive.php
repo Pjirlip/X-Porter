@@ -46,6 +46,8 @@ function hxp_import_headers_and_footer() {
 	$hxp_imported_image_Paths       = $hxp_configuration['imagePaths'];
 	$hxp_imported_short_image_Paths = $hxp_configuration['imageShortPaths'];
 	$hxp_new_hostname               = $_SERVER['HTTP_HOST'];
+	$hxp_old_host_was_https         = $hxp_configuration['httpsStatus'];
+	$hxp_new_host_is_https          = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) || $_SERVER['SERVER_PORT'] == 443;
 
 
 	foreach ( $hxp_imported_short_image_Paths as $key => $value ) {
@@ -71,7 +73,7 @@ function hxp_import_headers_and_footer() {
 
 	}
 
-	$hxp_date   = current_time( 'mysql' );
+	$hxp_date = current_time( 'mysql' );
 
 	//ADD:  ELEMENTS
 	foreach ( $hxp_imported_elements as $key => $value ) {
@@ -81,7 +83,17 @@ function hxp_import_headers_and_footer() {
 
 		$hxp_post_content = $value['post_content'];
 		$hxp_post_content = str_replace( $hxp_imported_oldHostname, $hxp_new_hostname, $hxp_post_content );
-		$hxp_post_content = addslashes($hxp_post_content);
+
+		if ( $hxp_old_host_was_https != $hxp_new_host_is_https ) {
+			if ( $hxp_old_host_was_https == true ) {
+				$hxp_post_content = str_replace( 'https', 'http', $hxp_post_content );
+			} else {
+				$hxp_post_content = str_replace( 'http', 'https', $hxp_post_content );
+			}
+		}
+
+
+		$hxp_post_content = addslashes( $hxp_post_content );
 
 
 		$postarr = array(
@@ -110,7 +122,7 @@ function hxp_import_headers_and_footer() {
 			'comment_count'         => $value['comment_count'],
 		);
 
-		wp_insert_post($postarr);
+		wp_insert_post( $postarr );
 
 	}
 

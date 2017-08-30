@@ -263,6 +263,10 @@ jQuery(document).ready(() => {
         let response = loadImages();
         hxp_progress_bar.val(33);
 
+        let hxp_protocol_indicator = location.protocol;
+        hxp_protocol_indicator = hxp_protocol_indicator.indexOf('https') === -1 ? false : true;
+
+
         let export_object         = {};
         export_object.fonts       = hxp_exports_fonts;
         export_object.colors      = hxp_export_colors;
@@ -271,6 +275,7 @@ jQuery(document).ready(() => {
         export_object.imageNames  = response.names;
         export_object.imagePaths  = response.paths;
         export_object.imageShortPaths = response.shortPaths;
+        export_object.httpsStatus = hxp_protocol_indicator;
 
         //console.log(JSON.stringify(export_object));
 
