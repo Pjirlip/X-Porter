@@ -52,8 +52,9 @@ function hxp_main_export_screen() {
 	wp_enqueue_style( 'hxp_custom_style' );
 	wp_dequeue_script( 'hxp_import_script' );
 	wp_enqueue_script( 'hxp_export_script' );
-	?>
 
+	if ( is_admin() ) {
+	?>
 	<div class="hxp">
 		<div id="headertext">
 			<div id="innerHeaderContainer">
@@ -104,6 +105,14 @@ function hxp_main_export_screen() {
 		</div>
 	</div>
 	<?php
+	}
+	else
+		{
+			echo 'You don\'t have the permission to use this Plugin. Admins only!';
+		}
+
+
+
 }
 
 function hxp_main_import_screen() {
@@ -133,6 +142,10 @@ function hxp_main_import_screen() {
 		</div>
 		<?php
 	}
+	else
+		{
+			echo 'You don\'t have the permission to use this Plugin. Admins only!';
+		}
 }
 
 function hxp_XPorter() {
