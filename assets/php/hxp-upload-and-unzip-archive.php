@@ -7,6 +7,8 @@
  * Copyright: Philipp Dippel
  */
 
+defined( 'ABSPATH' ) || exit();
+
 $indicator = false;
 
 if ( isset( $_FILES['hxp_zip_file'] ) ) {
