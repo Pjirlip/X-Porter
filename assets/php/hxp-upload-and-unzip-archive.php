@@ -32,7 +32,7 @@ function hxp_import_headers_and_footer() {
 	$hxp_problems_indicator = $hxp_zip->open( $hxp_upload_dir['basedir'] . '/hxp_imports/export.zip' );
 
 	if ( $hxp_problems_indicator != true ) {
-		echo '<script> alert("Import interrupted: Could not open ZIP-File Error Code: ' . $hxp_problems_indicator . ' ")</script>';
+		echo '<script> alert("Import interrupted: File was not an ZIP-File or could not open ZIP-File - Error Code: ' . $hxp_problems_indicator . ' ")</script>';
 
 		return;
 	}
