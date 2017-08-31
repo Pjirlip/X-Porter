@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit();
 
-
+//Collect all information from the databse
 add_action( 'wp_ajax_hxp_collectData', 'hxp_collectData' );
 
 function hxp_collectData() {

@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit();
 
 add_action( 'wp_ajax_hxp_save_json', 'hxp_save_json' );
 
+//get Object with configuration from javascript and create json file
 function hxp_save_json() {
 
 	$hxp_upload_dir = wp_upload_dir();

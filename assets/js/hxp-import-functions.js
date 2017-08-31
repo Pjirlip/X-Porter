@@ -11,6 +11,7 @@ jQuery(document).ready(() => {
     let hxp_file_input    = jQuery('#zip_file');
     let hxp_submit_button = jQuery('#submitButton');
 
+    //Check if an file is selected or not and toggle submit Button disabled property
     hxp_file_input.change(() => {
         if (hxp_file_input.val() !== '')
         {

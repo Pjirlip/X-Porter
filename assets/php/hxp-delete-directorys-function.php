@@ -11,6 +11,7 @@
 
 defined( 'ABSPATH' ) || exit();
 
+//function to delete recursively the generated directories
 function hxp_rrmdir($hxp_dir) {
 	if (is_dir($hxp_dir)) {
 		$hxp_objects = scandir($hxp_dir);

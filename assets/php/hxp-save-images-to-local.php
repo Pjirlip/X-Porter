@@ -9,6 +9,7 @@
 
 defined( 'ABSPATH' ) || exit();
 
+//get all needed images from ajax call and prepare them to create an zip bundle
 add_action( 'wp_ajax_hxp_save_images', 'hxp_save_images' );
 
 function hxp_save_images() {

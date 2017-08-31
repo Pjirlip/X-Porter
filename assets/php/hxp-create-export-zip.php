@@ -10,6 +10,8 @@
 
 defined( 'ABSPATH' ) || exit();
 
+
+//when all images and the configuration file are created create zip archive
 add_action( 'wp_ajax_hxp_create_export_bundle', 'hxp_create_export_bundle' );
 
 function hxp_create_export_bundle() {

@@ -35,6 +35,7 @@ SOFTWARE.
 
 defined( 'ABSPATH' ) || exit();
 
+//Add menus and register scripts
 add_action( 'admin_menu', 'hxp_XPorter' );
 add_action( 'admin_enqueue_scripts', 'hxp_add_stylesheet' );
 add_action( 'admin_enqueue_scripts', 'hxp_add_javascript' );
@@ -48,6 +49,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'assets/php/hxp-upload-and-unzip-arc
 
 function hxp_main_export_screen() {
 
+	//Enqueue scripts and styles
 	wp_dequeue_style( 'hxp_custom_style' );
 	wp_enqueue_style( 'hxp_custom_style' );
 	wp_dequeue_script( 'hxp_import_script' );
@@ -169,6 +171,7 @@ function hxp_add_javascript() {
 	) );
 }
 
+//Remove generated data on uninstall
 function hxp_plugin_deactivation() {
 	wp_dequeue_style( 'hxp_custom_style' );
 	wp_deregister_style( 'hxp_custom_style' );

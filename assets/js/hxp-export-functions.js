@@ -8,6 +8,7 @@
 
 jQuery(document).ready(() => {
 
+    //Initalise Variables
     let hxp_all_Elements                     = [];
     let hxp_all_for_export_selected_Elements = [];
     let hxp_colors                           = null;
@@ -31,11 +32,13 @@ jQuery(document).ready(() => {
         hxp_download_zip();
     });
 
+    //Get all information from the database
     jQuery('#loadButton').click(() => {
 
         jQuery('#exportButton').prop("disabled", true);
         hxp_clearExports();
 
+        //Reset variables, if action is performed again
         hxp_colors                           = null;
         hxp_all_Elements                     = [];
         hxp_export_colors                    = [];
@@ -155,6 +158,7 @@ jQuery(document).ready(() => {
 
     }
 
+    //Clear all visible lists
     function hxp_clearExports()
     {
         hxp_export_colors = [];
@@ -167,6 +171,7 @@ jQuery(document).ready(() => {
         jQuery('#needetImagesList').empty();
     }
 
+    //Get all selected Elements and fill lists
     function get_selected_Elements()
     {
         hxp_all_for_export_selected_Elements = [];
@@ -190,6 +195,7 @@ jQuery(document).ready(() => {
 
     }
 
+    //Find all Image URL in the header / footer description
     function findImages(searchstring)
     {
         let regEx    = new RegExp('"(?:https?://)' + hxp_hostname + '(?:[^\\.]+?)\\.(?:jpg|jpeg|gif|png)', 'g');
@@ -208,6 +214,7 @@ jQuery(document).ready(() => {
         });
     }
 
+    //Create image list and tell php to copy them
     function loadImages()
     {
         hxp_overlay_text.text("Collecting all Images...");
@@ -251,6 +258,7 @@ jQuery(document).ready(() => {
         return response;
     }
 
+    //Main function for creating configuration object and pass them to the php function
     function create_export_bundel()
     {
 

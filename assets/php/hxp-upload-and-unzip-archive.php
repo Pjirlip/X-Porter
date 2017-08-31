@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit();
 
 $indicator = false;
 
+//If the importer site is entered from the user with the zip file as POST value, import the data
 if ( isset( $_FILES['hxp_zip_file'] ) ) {
 
 	add_action( 'init', 'hxp_import_headers_and_footer' );
@@ -29,7 +30,7 @@ function hxp_import_headers_and_footer() {
 
 	move_uploaded_file( $_FILES['hxp_zip_file']['tmp_name'], $hxp_upload_dir['basedir'] . '/hxp_imports/export.zip' );
 
-
+	//open the ZIP Archive...
 	$hxp_zip                = new ZipArchive;
 	$hxp_problems_indicator = $hxp_zip->open( $hxp_upload_dir['basedir'] . '/hxp_imports/export.zip' );
 
@@ -39,6 +40,7 @@ function hxp_import_headers_and_footer() {
 		return;
 	}
 
+	//...and extract it in the .../uploads/hxp_imports/ path
 	$hxp_problems_indicator = $hxp_zip->extractTo( $hxp_upload_dir['basedir'] . '/hxp_imports/' );
 
 	if ( $hxp_problems_indicator != true ) {
@@ -82,7 +84,7 @@ function hxp_import_headers_and_footer() {
 		$hxp_problems_indicator = copy( $hxp_upload_dir['basedir'] . '/hxp_imports/images/' . $hxp_imported_imageNames[ $key ], $hxp_upload_dir['basedir'] . '/' . $value );
 		$filename               = $hxp_upload_dir['basedir'] . '/' . $value;
 
-
+		//register the images in the Wordpress Media Library, so the user can use them elsewhere
 		$filetype = wp_check_filetype( basename( $filename ), null );
 
 		$attachment = array(
@@ -111,6 +113,7 @@ function hxp_import_headers_and_footer() {
 
 
 	//ADD: ELEMENTS
+	//Copy the information and push them in the database
 	$hxp_problems_indicator = 1;
 	foreach ( $hxp_imported_elements as $key => $value ) {
 		$hxp_guid = $value['guid'];
@@ -120,6 +123,7 @@ function hxp_import_headers_and_footer() {
 		$hxp_post_content = $value['post_content'];
 		$hxp_post_content = str_replace( $hxp_imported_oldHostname, $hxp_new_hostname, $hxp_post_content );
 
+		//Change Protocol from https to http or the other way around, if needed in all urls
 		if ( $hxp_old_host_was_https != $hxp_new_host_is_https ) {
 			if ( $hxp_old_host_was_https == true ) {
 				$hxp_post_content = str_replace( 'https', 'http', $hxp_post_content );
@@ -170,6 +174,7 @@ function hxp_import_headers_and_footer() {
 
 
 	//UPDATE: COLORS OPTION
+	//Get the old template colors option and merge them with the new one
 	$hxp_old_colors = get_option( 'cornerstone_color_items' );
 	if ( false != $hxp_old_colors ) {
 		$hxp_old_colors = json_decode( stripslashes( $hxp_old_colors ) );
@@ -199,7 +204,7 @@ function hxp_import_headers_and_footer() {
 
 
 	//UPDATE: FONTS OPTION
-
+	//Get the old template fonts option and merge them with the new one
 	if ( ! empty( $hxp_imported_fonts ) ) {
 		$hxp_old_fonts = get_option( 'cornerstone_font_items' );
 		if ( false != $hxp_old_fonts ) {
