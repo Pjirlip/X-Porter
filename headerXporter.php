@@ -2,7 +2,7 @@
 /*
 Plugin Name: X-Porter
 Plugin URI: https://dippel.rocks
-Description: A Plugin to export and import X Pro (Themeco) created Theme Headers and Footers.
+Description: A plugin to export and import X Pro (Themeco) created theme headers and footers.
 Version: 1.0.0
 Author: Philipp Dippel
 Author URI: https://dippel.rocks
@@ -59,7 +59,7 @@ function hxp_main_export_screen() {
 		<div id="headertext">
 			<div id="innerHeaderContainer">
 				<h1> Welcome to the X-Porter</h1>
-				<p>This plugin allows you to easily export and import header and footer created with X Pro</p></div>
+				<p>This plugin allows you to export and import header and footer created with X Pro very easily</p></div>
 		</div>
 		<div id="generateList">
 			<h3 id="firstStepHeading"> Select Header & Footer</h3>
@@ -128,15 +128,15 @@ function hxp_main_import_screen() {
 			<div id="uploadHeadertext">
 				<div id="innerUploadHeaderContainer">
 					<h1> Welcome to the X-Porter</h1>
-					<p>This is the Importer. Here you can upload your created Zip-Archives.</p></div>
+					<p>This is the Importer. Here you can upload your created ZIP archives.</p></div>
 			</div>
 
 			<form id="uploadForm" method="post" enctype="multipart/form-data">
-				<label id="infoUploadHeader">Drag & Drop your Zip File in the highlighted Area or use the Button for File selection </label>
+				<label id="infoUploadHeader">Drag & drop your ZIP file in the highlighted area or use the button for file selection </label>
 				<input type="file" name="hxp_zip_file" id="zip_file"/>
 				<label id="warningHeading">Important!</label>
-				<label id="warningUploadLabel">As soon as you click on the "Import Data" button, the Zip-File you selected will be evaluated and written to the database. Only upload Files created with this plugin. Also you shouldn't
-					upload files from strangers. It's recommended to create a backup of the database before importing. Also you shouldn't import on an life-site directly, use an staging-site or an local environment. </label>
+				<label id="warningUploadLabel">As soon as you click on the "Import Data" button, the ZIP file you selected will be evaluated and written to the database. Upload only files created with this plugin. Otherwise you could damage your database.
+					It is recommended to create a backup of the database before importing files. Also you should not import to a productive site directly, use a staging-site or a local test environment. </label>
 				<input id="submitButton" type="submit" name="submit" value="Import Data" disabled>
 			</form>
 		</div>
